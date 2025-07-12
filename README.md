@@ -95,7 +95,7 @@ You can download the latest Windows build of Nebula Browser here:
 ## 🙏 Credits & Inspiration
 - [Electron](https://www.electronjs.org/)
 - [Google Chrome](https://www.google.com/chrome/) & [Microsoft Edge](https://www.microsoft.com/edge) (UI inspiration)
-- [Open source icons & wallpapers]
+- [Open source]
 
 ---
 
