@@ -76,7 +76,7 @@ Nebula Browser is a full-featured desktop browser app made with [Electron](https
 ---
 
 ## 📱 Screenshots
-(Add your screenshots here for homepage, tab system, mobile view, etc.)
+<img width="2862" height="1624" alt="ss" src="https://github.com/user-attachments/assets/720f6cfd-06cc-428d-bcf1-faefdd521056" />
 
 ---
 
