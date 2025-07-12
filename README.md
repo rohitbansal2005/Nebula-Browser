@@ -82,6 +82,13 @@ Nebula Browser is a full-featured desktop browser app made with [Electron](https
 
 ---
 
+## 🔗 Live Demo
+
+Try the browser online:  
+👉 [https://nebulabrowser.vercel.app](https://nebulabrowser.vercel.app)
+
+---
+
 ## 🖥️ Download
 
 You can download the latest Windows build of Nebula Browser here:
