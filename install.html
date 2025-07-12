@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Nebula Browser</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f8cff;
+      --primary-dark: #2b5db6;
+      --bg: #f7f9fb;
+      --card-bg: #fff;
+      --accent: #e9f1ff;
+      --text: #222;
+      --muted: #666;
+      --border: #e3e7ee;
+      --radius: 18px;
+      --shadow: 0 4px 24px rgba(79,140,255,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero {
+      background: linear-gradient(90deg, #4f8cff 0%, #6f9fff 100%);
+      color: #fff;
+      padding: 48px 0 32px 0;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 16px;
+      display: inline-block;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .logo svg {
+      width: 60px;
+      height: 60px;
+      display: block;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      letter-spacing: -1px;
+    }
+    .hero-tagline {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 28px;
+      color: #e9f1ff;
+    }
+    .download-btn {
+      background: #fff;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .download-btn:hover {
+      background: var(--primary-dark);
+      color: #fff;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 0 16px;
+      flex: 1;
+    }
+    .section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--primary-dark);
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: space-between;
+    }
+    .feature {
+      flex: 1 1 220px;
+      min-width: 180px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .feature-desc {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .requirements-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .requirements-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+    }
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: step;
+    }
+    .step-list li {
+      margin-bottom: 18px;
+      padding-left: 44px;
+      position: relative;
+      font-size: 1.05rem;
+    }
+    .step-list li:before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+    }
+    .screenshot-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      justify-content: center;
+    }
+    .screenshot {
+      width: 220px;
+      height: 140px;
+      background: var(--accent);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1rem;
+      font-style: italic;
+    }
+    .screenshot-img {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: block;
+      margin: 0 auto;
+    }
+    .warning-box {
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      color: #ad8b00;
+      border-radius: 10px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .faq {
+      margin-top: 12px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .faq-q {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .faq-q:hover {
+      color: var(--primary);
+    }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-left: 24px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      margin-top: 8px;
+    }
+    .faq-item.open .faq-q svg {
+      transform: rotate(90deg);
+    }
+    .contact {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.98rem;
+      padding: 24px 0 12px 0;
+      background: #f2f6fa;
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 18px 4vw 0 4vw; }
+      .section { padding: 18px 8px; }
+      .features { flex-direction: column; gap: 18px; }
+      .screenshot-row { flex-direction: column; gap: 14px; }
+      .screenshot { width: 100%; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="logo">
+      <!-- App logo: replace SVG with your PNG logo -->
+      <img src="logo.png" alt="Nebula Browser Logo" style="width:60px;height:60px;display:block;" />
+    </div>
+    <div class="hero-title">Nebula Browser</div>
+    <div class="hero-tagline">A modern, fast, and customizable desktop browser for everyone.</div>
+    <a href="Nebula Browser.exe" class="download-btn">⬇️ Download Nebula Browser for Windows</a>
+  </div>
+
+  <div class="container">
+    <!-- FEATURES SECTION -->
+    <div class="section">
+      <div class="section-title">Features</div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">
+            <!-- Tab icon -->
+            <svg width="24" height="24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" fill="#4f8cff"/><rect x="6" y="9" width="12" height="6" rx="2" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="feature-title">Chrome-style Tabs</div>
+            <div class="feature-desc">Smooth, independent tab management just like Chrome.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <!-- Home icon -->
+            <svg width="24" height="24" fill="none"><path d="M4 12L12 5l8 7v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z" stroke="#4f8cff" stroke-width="2" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="feature-title">Custom Homepage</div>
+            <div class="feature-desc">Personalize with quick links, widgets, wallpapers, and more.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <!-- Paint icon -->
+            <svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="10" fill="#4f8cff"/><circle cx="12" cy="12" r="6" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="feature-title">Theming & Customization</div>
+            <div class="feature-desc">Switch between dark/light/auto, accent colors, and more.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <!-- Rocket icon -->
+            <svg width="24" height="24" fill="none"><path d="M12 2C15 6 18 10 12 22C6 10 9 6 12 2Z" fill="#4f8cff"/><circle cx="12" cy="9" r="2" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="feature-title">Fast & Lightweight</div>
+            <div class="feature-desc">Built on Electron for speed and efficiency.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <!-- Mobile icon -->
+            <svg width="24" height="24" fill="none"><rect x="6" y="3" width="12" height="18" rx="3" fill="#4f8cff"/><rect x="9" y="17" width="6" height="2" rx="1" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="feature-title">Responsive Design</div>
+            <div class="feature-desc">Looks great on all screen sizes, including tablets.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM REQUIREMENTS -->
+    <div class="section">
+      <div class="section-title">System Requirements</div>
+      <ul class="requirements-list">
+        <li><svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="10" fill="#4f8cff"/></svg> Windows 10 or newer (64-bit)</li>
+        <li><svg width="20" height="20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="#4f8cff"/></svg> 2 GB RAM minimum (4 GB recommended)</li>
+        <li><svg width="20" height="20" fill="none"><rect x="2" y="6" width="16" height="8" rx="2" fill="#4f8cff"/></svg> 200 MB free disk space</li>
+        <li><svg width="20" height="20" fill="none"><rect x="4" y="4" width="12" height="12" rx="2" fill="#4f8cff"/></svg> Internet connection (for updates & web access)</li>
+      </ul>
+    </div>
+
+    <!-- INSTALLATION GUIDE -->
+    <div class="section" id="download">
+      <div class="section-title">How to Install</div>
+      <ol class="step-list">
+        <li>Click the <b>Download</b> button above to get the Nebula Browser installer (EXE).</li>
+        <li>Double-click the downloaded file to start the setup.</li>
+        <li>If you see a <b>Windows SmartScreen</b> warning, click <b>More info</b> &rarr; <b>Run anyway</b>.<br><span style="color:var(--muted);font-size:0.95em;">(This is normal for new apps. Nebula Browser is safe!)</span></li>
+        <li>Follow the on-screen instructions to complete installation.</li>
+        <li>Launch Nebula Browser from your desktop or Start menu and enjoy!</li>
+      </ol>
+      <div class="screenshot-row">
+        <!-- Replace with a single real screenshot -->
+        <img src="ss.png" alt="Nebula Browser Screenshot" class="screenshot-img" />
+      </div>
+    </div>
+
+    <!-- SMARTSCREEN WARNING INFO -->
+    <div class="section">
+      <div class="warning-box">
+        <svg width="32" height="32" fill="none"><circle cx="16" cy="16" r="16" fill="#ffe58f"/><path d="M16 8v8" stroke="#ad8b00" stroke-width="2"/><circle cx="16" cy="22" r="1.5" fill="#ad8b00"/></svg>
+        <div>
+          <b>Note:</b> Windows may show a <b>SmartScreen</b> warning for new apps. Nebula Browser is safe and does not contain any malware. Click <b>More info</b> &rarr; <b>Run anyway</b> to proceed.
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <div class="section">
+      <div class="section-title">Frequently Asked Questions</div>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <svg width="18" height="18" fill="none"><path d="M6 4l6 5-6 5" stroke="#4f8cff" stroke-width="2"/></svg>
+            Is Nebula Browser free?
+          </div>
+          <div class="faq-a">Yes! Nebula Browser is completely free to download and use.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <svg width="18" height="18" fill="none"><path d="M6 4l6 5-6 5" stroke="#4f8cff" stroke-width="2"/></svg>
+            Is it safe to use?
+          </div>
+          <div class="faq-a">Absolutely. Nebula Browser does not contain any malware or spyware. All code is open source and transparent.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <svg width="18" height="18" fill="none"><path d="M6 4l6 5-6 5" stroke="#4f8cff" stroke-width="2"/></svg>
+            Will it work on Mac or Linux?
+          </div>
+          <div class="faq-a">Currently, Nebula Browser is available for Windows only. Mac and Linux support is planned for the future.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <svg width="18" height="18" fill="none"><path d="M6 4l6 5-6 5" stroke="#4f8cff" stroke-width="2"/></svg>
+            How do I update Nebula Browser?
+          </div>
+          <div class="faq-a">You will be notified in the app when updates are available. Simply follow the prompts to update.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <svg width="18" height="18" fill="none"><path d="M6 4l6 5-6 5" stroke="#4f8cff" stroke-width="2"/></svg>
+            Where can I get support or report bugs?
+          </div>
+          <div class="faq-a">For support or to report bugs, contact us at visit our GitHub page.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT/SUPPORT -->
+    <div class="section contact">
+      <b>Need help?</b>visit our <a href="https://github.com/rohitbansal2005/Nebula-Browser">GitHub</a>.
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Nebula Browser. All rights reserved. | Made with ❤️ for the web.
+  </footer>
+
+  <script>
+    // FAQ expand/collapse
+    function toggleFaq(el) {
+      var item = el.parentElement;
+      item.classList.toggle('open');
+    }
+  </script>
+</body>
+</html> 

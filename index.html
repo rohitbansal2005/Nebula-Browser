@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula Browser</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="browser-container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="nav-buttons">
+                <button id="backBtn" class="nav-btn" title="Go Back">←</button>
+                <button id="forwardBtn" class="nav-btn" title="Go Forward">→</button>
+                <button id="refreshBtn" class="nav-btn" title="Refresh">↻</button>
+                <button id="homeBtn" class="nav-btn" title="Home">🏠</button>
+            </div>
+            
+            <div class="address-bar-container">
+                <input type="text" id="addressBar" class="address-bar" placeholder="Search or enter address">
+                <button id="goBtn" class="go-btn">Go</button>
+            </div>
+            
+            <div class="toolbar-actions">
+                <button id="bookmarkBtn" class="action-btn" title="Bookmark">⭐</button>
+                <button id="settingsBtn" class="action-btn" title="Settings">⚙️</button>
+                <button id="historyBtn" class="action-btn" title="History">📚</button>
+            </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tabs-container" id="tabsContainer">
+                <div class="tab active" data-tab-id="tab1">
+                    <span class="tab-title">New Tab</span>
+                    <button class="tab-close" data-tab-id="tab1">×</button>
+                </div>
+            </div>
+            <button id="newTabBtn" class="new-tab-btn">+</button>
+        </div>
+
+        <!-- Webview Container -->
+        <div class="webview-container">
+            <webview id="webview" src="welcome.html" class="webview"></webview>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="close-btn" id="closeSettings">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="homepageInput">Homepage:</label>
+                        <input type="text" id="homepageInput" placeholder="https://www.google.com">
+                    </div>
+                    <div class="setting-group">
+                        <label for="searchEngineInput">Search Engine:</label>
+                        <input type="text" id="searchEngineInput" placeholder="https://www.google.com/search?q=">
+                    </div>
+                    <button id="saveSettings" class="save-btn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookmarks Modal -->
+        <div id="bookmarksModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Bookmarks</h2>
+                    <button class="close-btn" id="closeBookmarks">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookmarksList" class="bookmarks-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div id="historyModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>History</h2>
+                    <button class="close-btn" id="closeHistory">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="historyList" class="history-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html> 

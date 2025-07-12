@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula Browser - Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            transition: background 0.3s, color 0.3s;
+        }
+        html, body {
+            background: #fff;
+        }
+        body.dark, html.dark, body.dark.custom-bg, html.dark.custom-bg {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
+        }
+        .center-box {
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 20px 48px 20px 48px; /* Reduced vertical padding, more horizontal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 340px;
+            max-width: 700px; /* Increased width */
+            width: 90vw; /* Responsive width */
+            margin: 0 auto; /* Center horizontally */
+            transform: translateX(20%); /* Move 20% to the right */
+        }
+        @media (max-width: 800px) {
+            .center-box {
+                max-width: 98vw;
+                padding: 12px 4vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .center-box {
+                padding: 8px 2vw;
+                min-width: unset;
+            }
+        }
+        .nebula-logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #0072b1 20%, #00c3ff 60%, #ff6a00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            animation: logoFadeIn 1.2s;
+        }
+        .nebula-logo-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            margin-bottom: 12px;
+            object-fit: cover;
+            background: #fff;
+        }
+        @keyframes logoFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .welcome-msg {
+            font-size: 1.15rem;
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
+            opacity: 0.85;
+            text-align: center;
+        }
+        .search-bar {
+            display: flex;
+            width: 350px;
+            max-width: 90vw;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1.1rem;
+            outline: none;
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            transition: background 0.2s;
+        }
+        .search-bar input:focus {
+            background: rgba(255,255,255,0.28);
+        }
+        .search-bar input::placeholder {
+            color: #e0e0e0;
+        }
+        .search-bar button {
+            padding: 0 28px;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            background: linear-gradient(90deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-bar button:hover {
+            background: linear-gradient(90deg, #ff6a00 0%, #00c3ff 100%);
+        }
+        .quick-links {
+            display: flex;
+            gap: 28px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.10);
+            padding: 14px 18px;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.2s;
+            min-width: 90px;
+            position: relative;
+        }
+        .quick-link:hover {
+            background: rgba(255,255,255,0.18);
+            transform: translateY(-3px) scale(1.04);
+        }
+        .quick-link .icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 7px;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            background: #444;
+            overflow: hidden;
+        }
+        .icon-youtube { background: #ff0000; }
+        .icon-instagram { background: linear-gradient(135deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%); }
+        .icon-github { background: #181717; }
+        .icon-chatgpt { background: #10a37f; }
+        .delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #ff4d4f;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .quick-link:hover .delete-btn {
+            opacity: 0.85;
+            pointer-events: auto;
+        }
+        .add-link-btn {
+            margin-top: 18px;
+            background: linear-gradient(90deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 28px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+        }
+        .add-link-btn:hover {
+            background: linear-gradient(90deg, #ff6a00 0%, #00c3ff 100%);
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #232526;
+            border-radius: 18px;
+            padding: 32px 24px 24px 24px;
+            min-width: 300px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .modal-content input {
+            width: 220px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #888;
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+        .modal-content button {
+            background: linear-gradient(90deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .modal-content button:hover {
+            background: linear-gradient(90deg, #ff6a00 0%, #00c3ff 100%);
+        }
+        .theme-toggle-btn {
+            position: fixed;
+            top: 24px;
+            right: 32px;
+            z-index: 1001;
+            background: rgba(0,0,0,0.18);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(0,0,0,0.32);
+        }
+        body.light {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #232526;
+        }
+        body.light .center-box {
+            background: rgba(255,255,255,0.97);
+            color: #232526;
+        }
+        body.light .quick-link {
+            background: rgba(0,0,0,0.06);
+            color: #232526 !important;
+        }
+        body.light .quick-link:hover {
+            background: rgba(0,0,0,0.12);
+        }
+        body.light .quick-link .icon {
+            background: #e0e0e0;
+        }
+        body.light .add-link-btn, body.light .modal-content button, body.light .wallpaper-btn {
+            color: #232526 !important;
+        }
+        body.light .search-bar button {
+            color: #232526 !important;
+        }
+        body.light .modal-content input,
+        body.light .search-bar input {
+            color: #232526 !important;
+        }
+        body.light .modal-content {
+            background: #fff;
+            color: #232526;
+        }
+        body.light .modal-content input {
+            background: #f5f7fa;
+            color: #232526;
+            border: 1px solid #bbb;
+        }
+        body.light .modal-content input::placeholder {
+            color: #888;
+        }
+        body.light .search-bar input {
+            background: #f5f7fa;
+            color: #232526;
+            border: 1px solid #bbb;
+        }
+        body.light .search-bar input:focus {
+            background: #fff;
+        }
+        body.light .search-bar input::placeholder {
+            color: #888;
+        }
+        body.light .search-bar button {
+            color: #fff;
+        }
+        body.light .theme-toggle-btn {
+            background: rgba(0,0,0,0.08);
+            color: #232526;
+        }
+        body.light .delete-btn {
+            background: #ff4d4f;
+            color: #fff;
+        }
+        body.dark {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            color: #fff;
+        }
+        body.dark .center-box {
+            background: rgba(30,32,34,0.96);
+            color: #fff;
+        }
+        body.dark .quick-link {
+            background: rgba(255,255,255,0.10);
+            color: #fff;
+        }
+        body.dark .quick-link:hover {
+            background: rgba(255,255,255,0.18);
+        }
+        body.dark .quick-link .icon {
+            background: #444;
+        }
+        body.dark .add-link-btn, body.dark .modal-content button {
+            color: #fff;
+        }
+        body.dark .modal-content {
+            background: #232526;
+            color: #fff;
+        }
+        body.dark .modal-content input {
+            background: #232526;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        body.dark .modal-content input::placeholder {
+            color: #bbb;
+        }
+        body.dark .search-bar input {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            border: 1px solid #444;
+        }
+        body.dark .search-bar input:focus {
+            background: rgba(255,255,255,0.28);
+        }
+        body.dark .search-bar input::placeholder {
+            color: #e0e0e0;
+        }
+        body.dark .search-bar button {
+            color: #fff;
+        }
+        body.dark .theme-toggle-btn {
+            background: rgba(0,0,0,0.18);
+            color: #fff;
+        }
+        body.dark .delete-btn {
+            background: #ff4d4f;
+            color: #fff;
+        }
+        .wallpaper-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            justify-content: center;
+        }
+        .wallpaper-btn {
+            background: linear-gradient(90deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+        }
+        .wallpaper-btn:hover {
+            background: linear-gradient(90deg, #ff6a00 0%, #00c3ff 100%);
+        }
+        body.custom-bg {
+            background: var(--custom-bg) no-repeat center center fixed !important;
+            background-size: cover !important;
+        }
+        body.dark.custom-bg {
+            background-blend-mode: darken, saturation;
+        }
+        body.light.custom-bg {
+            background-blend-mode: lighten;
+        }
+        /* Weather widget styles removed */
+        @media (max-width: 600px) {
+            .center-box { padding: 24px 6vw; min-width: unset; }
+            .search-bar { width: 95vw; }
+            .quick-links { gap: 14px; }
+        }
+        .wallpaper-fab {
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            z-index: 1002;
+            background: linear-gradient(135deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            font-size: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .wallpaper-fab:hover {
+            background: linear-gradient(135deg, #ff6a00 0%, #00c3ff 100%);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+        }
+        #wallpaperModal .modal-content {
+            min-width: 260px;
+        }
+        #bgUpload {
+            width: 100%;
+        }
+        .quick-links-bar {
+            display: flex;
+            flex-direction: row;
+            gap: 18px;
+            margin: 32px auto 0 auto;
+            padding: 12px 0 0 0;
+            max-width: 90vw;
+            overflow-x: auto;
+            justify-content: center;
+            scrollbar-width: thin;
+        }
+        .quick-links-bar::-webkit-scrollbar {
+            height: 8px;
+        }
+        .quick-links-bar::-webkit-scrollbar-thumb {
+            background: #bbb;
+            border-radius: 4px;
+        }
+        .google-link-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 18px;
+        }
+        .chrome-shortcuts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 18px 18px;
+            margin: 32px 0 0 0;
+            padding: 0 8px;
+            width: 100%;
+            max-width: 420px;
+            justify-items: center;
+        }
+        .chrome-shortcut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
+            transition: background 0.2s, box-shadow 0.2s;
+            border-radius: 16px;
+            padding: 8px 0 0 0;
+            min-width: 80px;
+        }
+        .chrome-shortcut:focus, .chrome-shortcut:hover {
+            background: rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .chrome-shortcut-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+        .chrome-shortcut-label {
+            font-size: 0.98rem;
+            color: #232526;
+            text-align: center;
+            margin-top: 2px;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .chrome-shortcut-add {
+            background: linear-gradient(135deg, #00c3ff 0%, #ff6a00 100%);
+            color: #fff;
+            font-size: 2rem;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            border: none;
+            cursor: pointer;
+        }
+        .chrome-shortcut-add:hover {
+            background: linear-gradient(135deg, #ff6a00 0%, #00c3ff 100%);
+        }
+        .chrome-shortcut-add-label {
+            color: #232526;
+            font-size: 0.98rem;
+            text-align: center;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+          .center-box {
+            max-width: 98vw !important;
+            min-width: unset !important;
+            width: 98vw !important;
+            padding: 12px 2vw 18px 2vw !important;
+            border-radius: 24px !important;
+          }
+          .nebula-logo-img {
+            width: 54px !important;
+            height: 54px !important;
+            margin-bottom: 8px !important;
+          }
+          .nebula-logo {
+            font-size: 1.5rem !important;
+            margin-bottom: 6px !important;
+          }
+          .welcome-msg {
+            font-size: 1rem !important;
+            margin-bottom: 18px !important;
+          }
+          .search-bar {
+            width: 100% !important;
+            max-width: 100vw !important;
+            margin-bottom: 18px !important;
+            flex-direction: column !important;
+            box-shadow: none !important;
+          }
+          .search-bar input, .search-bar button {
+            font-size: 1rem !important;
+            padding: 10px 12px !important;
+            border-radius: 18px !important;
+            margin-bottom: 6px !important;
+          }
+          .chrome-shortcuts {
+            gap: 10px 10px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          .chrome-shortcut {
+            min-width: 60px !important;
+            max-width: 80px !important;
+            font-size: 0.85rem !important;
+            padding: 4px 0 0 0 !important;
+          }
+          .chrome-shortcut-icon, .chrome-shortcut-add {
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 1.2rem !important;
+          }
+          .chrome-shortcut-label, .chrome-shortcut-add-label {
+            font-size: 0.85rem !important;
+          }
+        }
+    </style>
+</head>
+<body>
+    <button id="themeToggle" class="theme-toggle-btn" title="Toggle theme">🌗</button>
+    <div class="center-box">
+        <img src="logo.png" alt="Nebula Browser Logo" class="nebula-logo-img" />
+        <div class="nebula-logo">Nebula Browser</div>
+        <div class="welcome-msg">Welcome to your own unique browsing universe!</div>
+        <form class="search-bar" onsubmit="search(event)">
+            <input type="text" id="nebulaSearch" placeholder="Search the web or type a URL..." autofocus />
+            <button type="submit">Search</button>
+        </form>
+        <div class="chrome-shortcuts" id="quickLinks"></div>
+    </div>
+    <div class="quick-links-bar" id="quickLinks"></div>
+    <!-- Weather widget removed -->
+    <!-- Floating Wallpaper Button -->
+    <button class="wallpaper-fab" id="wallpaperFab" title="Change Wallpaper">🖼️</button>
+    <!-- Wallpaper Modal -->
+    <div class="modal" id="wallpaperModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:18px;">Custom Wallpaper</h3>
+            <input type="file" id="bgUpload" accept="image/*" style="margin-bottom:12px;" />
+            <button onclick="resetWallpaper()" class="wallpaper-btn" style="margin-bottom:12px;">Reset to Default</button>
+            <button onclick="closeWallpaperModal()" style="background:#888;">Close</button>
+        </div>
+    </div>
+    <!-- Add Link Modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:18px;">Add Quick Link</h3>
+            <input type="text" id="linkName" placeholder="Name (e.g. YouTube)" />
+            <input type="text" id="linkUrl" placeholder="URL (e.g. https://youtube.com)" />
+            <button onclick="addLink()">Add</button>
+            <button onclick="closeAddModal()" style="margin-top:8px;background:#888;">Cancel</button>
+        </div>
+    </div>
+    <script>
+        // Brand SVG icons (inline SVG for best quality)
+        const brandIcons = {
+            'youtube.com': `<svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#ff0000"/><polygon points="10,8 16,12 10,16" fill="#fff"/></svg>`,
+            'instagram.com': `<svg width="22" height="22" viewBox="0 0 24 24"><radialGradient id="ig" cx="50%" cy="50%" r="80%"><stop offset="0%" stop-color="#f9ce34"/><stop offset="50%" stop-color="#ee2a7b"/><stop offset="100%" stop-color="#6228d7"/></radialGradient><circle cx="12" cy="12" r="12" fill="url(#ig)"/><rect x="7" y="7" width="10" height="10" rx="3" fill="#fff"/><circle cx="12" cy="12" r="3" fill="#ee2a7b"/></svg>`,
+            'github.com': `<svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#181717"/><path d="M12 17.27c-2.97 0-5.39-2.42-5.39-5.39 0-2.39 1.55-4.42 3.7-5.14.27-.05.37.12.37.27v1.01c-1.5-.33-1.82.72-1.82.72-.25.64-.61.81-.61.81-.5.34.04.33.04.33.55-.04.84.56.84.56.5.84 1.32.6 1.64.46.05-.36.2-.6.36-.74-1.2-.14-2.46-.6-2.46-2.67 0-.59.21-1.07.55-1.45-.06-.14-.24-.7.05-1.46 0 0 .45-.15 1.5.55.43-.12.89-.18 1.35-.18.46 0 .92.06 1.35.18 1.05-.7 1.5-.55 1.5-.55.29.76.11 1.32.05 1.46.34.38.55.86.55 1.45 0 2.08-1.26 2.53-2.46 2.67.2.17.38.5.38 1.01v1.5c0 .15.1.32.37.27 2.15-.72 3.7-2.75 3.7-5.14 0-2.97-2.42-5.39-5.39-5.39z" fill="#fff"/></svg>`,
+            'chat.openai.com': `<svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#10a37f"/><text x="12" y="16" text-anchor="middle" font-size="12" fill="#fff">GPT</text></svg>`
+        };
+
+        // Load links from localStorage or use defaults
+        function getDefaultLinks() {
+            return [
+                { name: 'YouTube', url: 'https://www.youtube.com' },
+                { name: 'Instagram', url: 'https://www.instagram.com' },
+                { name: 'GitHub', url: 'https://github.com' },
+                { name: 'ChatGPT', url: 'https://chat.openai.com' }
+            ];
+        }
+        function loadLinks() {
+            let links = [];
+            try {
+                links = JSON.parse(localStorage.getItem('nebulaLinks')) || getDefaultLinks();
+            } catch { links = getDefaultLinks(); }
+            return links;
+        }
+        function saveLinks(links) {
+            localStorage.setItem('nebulaLinks', JSON.stringify(links));
+        }
+        function getDomain(url) {
+            try { return new URL(url).hostname.replace('www.',''); } catch { return ''; }
+        }
+        function getFavicon(url) {
+            const domain = getDomain(url);
+            return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+        }
+        // Render quick links as Chrome-style grid inside card
+        function renderLinks() {
+            const links = loadLinks().slice(0, 8);
+            const container = document.getElementById('quickLinks');
+            container.innerHTML = '';
+            links.forEach((link, idx) => {
+                const domain = getDomain(link.url);
+                let icon = brandIcons[domain] || `<img src="${getFavicon(link.url)}" width="28" height="28" style="border-radius:50%;background:#fff;" alt="icon"/>`;
+                container.innerHTML += `
+                    <button class="chrome-shortcut" onclick="window.location.href='${link.url}'">
+                        <span class="chrome-shortcut-icon">${icon}</span>
+                        <span class="chrome-shortcut-label">${link.name}</span>
+                        <button class='delete-btn' title='Delete' onclick='deleteLink(${idx}, event)' style='position:absolute;top:2px;right:2px;'></button>
+                    </button>
+                `;
+            });
+            // Add shortcut button
+            if (links.length < 8) {
+                container.innerHTML += `
+                    <button class="chrome-shortcut" onclick="openAddModal()">
+                        <span class="chrome-shortcut-add">+</span>
+                        <span class="chrome-shortcut-add-label">Add Link</span>
+                    </button>
+                `;
+            }
+        }
+        function deleteLink(idx, e) {
+            e.stopPropagation();
+            let links = loadLinks();
+            links.splice(idx, 1);
+            saveLinks(links);
+            renderLinks();
+        }
+        // Modal logic
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'flex';
+            document.getElementById('linkName').value = '';
+            document.getElementById('linkUrl').value = '';
+        }
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+        function addLink() {
+            const name = document.getElementById('linkName').value.trim();
+            let url = document.getElementById('linkUrl').value.trim();
+            if (!name || !url) return alert('Please enter both name and URL!');
+            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
+            let links = loadLinks();
+            links.push({ name, url });
+            saveLinks(links);
+            closeAddModal();
+            renderLinks();
+        }
+        // Initial render
+        renderLinks();
+        // Modal close on background click
+        document.getElementById('addModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAddModal();
+        });
+        // Search logic
+        function search(e) {
+            e.preventDefault();
+            let val = document.getElementById('nebulaSearch').value.trim();
+            if (!val) return;
+            window.location.href = `https://www.google.com/search?q=${encodeURIComponent(val)}`;
+        }
+        // WALLPAPER FEATURE
+        function setCustomBg(url) {
+            document.body.classList.add('custom-bg');
+            document.body.style.setProperty('--custom-bg', `url('${url}')`);
+            localStorage.setItem('nebulaBg', url);
+        }
+        function resetWallpaper() {
+            document.body.classList.remove('custom-bg');
+            document.body.style.removeProperty('--custom-bg');
+            localStorage.removeItem('nebulaBg');
+        }
+        function setRandomWallpaper() {
+            fetch('https://source.unsplash.com/1920x1080/?nature,space,abstract,gradient,wallpaper')
+                .then(res => {
+                    setCustomBg(res.url);
+                });
+        }
+        // Floating wallpaper button logic
+        const wallpaperFab = document.getElementById('wallpaperFab');
+        const wallpaperModal = document.getElementById('wallpaperModal');
+        const bgUpload = document.getElementById('bgUpload');
+        wallpaperFab.addEventListener('click', () => {
+            wallpaperModal.style.display = 'flex';
+        });
+        function closeWallpaperModal() {
+            wallpaperModal.style.display = 'none';
+        }
+        wallpaperModal.addEventListener('click', function(e) {
+            if (e.target === this) closeWallpaperModal();
+        });
+        bgUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                setCustomBg(evt.target.result);
+                closeWallpaperModal();
+            };
+            reader.readAsDataURL(file);
+        });
+        // On load, apply saved wallpaper
+        const savedBg = localStorage.getItem('nebulaBg');
+        if (savedBg) setCustomBg(savedBg);
+        // THEME TOGGLE
+        const themeBtn = document.getElementById('themeToggle');
+        const themeModes = ['auto', 'dark', 'light'];
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        function applyTheme(mode) {
+            let theme = mode;
+            if (mode === 'auto') theme = getSystemTheme();
+            document.body.classList.remove('dark', 'light');
+            document.body.classList.add(theme);
+            themeBtn.textContent = mode === 'auto' ? '🌗' : (theme === 'dark' ? '🌙' : '☀️');
+        }
+        function getSavedTheme() {
+            return localStorage.getItem('nebulaTheme') || 'auto';
+        }
+        function setTheme(mode) {
+            localStorage.setItem('nebulaTheme', mode);
+            applyTheme(mode);
+        }
+        themeBtn.addEventListener('click', () => {
+            let current = getSavedTheme();
+            let idx = themeModes.indexOf(current);
+            let next = themeModes[(idx + 1) % themeModes.length];
+            setTheme(next);
+        });
+        // On load
+        applyTheme(getSavedTheme());
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (getSavedTheme() === 'auto') applyTheme('auto');
+        });
+        // Weather widget JS removed
+        // Force homepage reload on Ctrl+R or F5
+        window.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.key.toLowerCase() === 'r') || e.key === 'F5') {
+                e.preventDefault();
+                window.location.href = `file://${__dirname}/welcome.html`;
+            }
+        });
+    </script>
+</body>
+</html> 
