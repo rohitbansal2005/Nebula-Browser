@@ -82,6 +82,16 @@ Nebula Browser is a full-featured desktop browser app made with [Electron](https
 
 ---
 
+## 🖥️ Download
+
+You can download the latest Windows build of Nebula Browser here:
+
+🔗 [Download Nebula Browser (.exe)](https://drive.google.com/file/d/1id2k7-HyQHz19CMbI2BTDyOOcwj4bQdN/view?usp=sharing)
+
+> Note: This is a standalone `.exe` file built for Windows. No installation needed — just run and explore!
+
+---
+
 ## 🙏 Credits & Inspiration
 - [Electron](https://www.electronjs.org/)
 - [Google Chrome](https://www.google.com/chrome/) & [Microsoft Edge](https://www.microsoft.com/edge) (UI inspiration)
