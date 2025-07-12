@@ -88,7 +88,8 @@ Nebula Browser is a full-featured desktop browser app made with [Electron](https
 ---
 
 ## 📝 License
-MIT (or your preferred license)
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
