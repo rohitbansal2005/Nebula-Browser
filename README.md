@@ -1,6 +1,8 @@
 # Nebula Browser
 
-A modern, customizable, Chrome-like desktop browser built with Electron, featuring a beautiful homepage, tab system, theming, and more.
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen.svg)](LICENSE)
+
+A modern, open-source browser built with Electron.
 
 ---
 
